@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de CEP</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="painel">
+        <div class="cabecario">
+            <img src="ifpr.png" alt="Logo" class="logo">
+            <h1>Consulta de CEP</h1>
+        </div>
+
+        <form class="caixas">
+            <div class="caixa-input">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite o CEP">
+            </div>
+            <div class="caixa-input">
+                <label for="logradouro">Logradouro</label>
+                <input type="text" id="logradouro" name="logradouro" readonly>
+            </div>
+            <div class="caixa-input">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" name="complemento" readonly>
+            </div>
+            <div class="caixa-input">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro" readonly>
+            </div>
+            <div class="caixa-input">
+                <label for="localidade">Cidade</label>
+                <input type="text" id="localidade" name="localidade" readonly>
+            </div>
+            <div class="caixa-input">
+                <label for="uf">Estado</label>
+                <input type="text" id="uf" name="uf" readonly>
+            </div>
+        </form>
+    </div>
+    <script src="confg.js"></script>
+</body>
+</html>
