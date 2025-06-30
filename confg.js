@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const cep = document.getElementById("cep");
-
-    // Função para obter a região com base no estado
     const obterRegiao = (uf) => {
         const regioes = {
             "AC": "Norte", "AL": "Nordeste", "AP": "Norte", "AM": "Norte", "BA": "Nordeste", "CE": "Nordeste",
@@ -12,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         return regioes[uf] || 'Desconhecida';
     };
-
-    // Função para obter o DDD com base no estado
     const obterDDD = (uf) => {
         const ddds = {
             "AC": "68", "AL": "82", "AP": "96", "AM": "92", "BA": "71", "CE": "85",
