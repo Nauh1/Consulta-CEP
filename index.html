@@ -56,9 +56,22 @@
             <div class="caixa-input">
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite um nome para salvar">
-                <button type="button" id="save">Salvar</button>
+                <div class="botoes">
+                    <button type="button" id="save">Salvar</button>
+                    <button type="button" id="listar">Listar</button>
+                </div>
             </div>
+
         </form>
+
+        <div class="lateral-direita"
+            style="border-left: 10px solid green;  border-top: 10px solid green; border-radius: 20px;">
+            <h2>Dados armazenados</h2>
+            <ul id="lista-armazem">
+               
+            </ul>
+        </div>
+
     </div>
     <script src="confg.js"></script>
 </body>

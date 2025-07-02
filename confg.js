@@ -4,8 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const salvar = document.getElementById("save");
     let cepValue = '';
     let data = null;
+    let nomeSave = null;
 
-    let armazem = [];
+    const armazenado = localStorage.getItem("armazem");
+    let armazem = armazenado ? JSON.parse(armazenado) : [];
+    
     const obterRegiao = (uf) => {
         const regioes = {
             "AC": "Norte", "AL": "Nordeste", "AP": "Norte", "AM": "Norte", "BA": "Nordeste", "CE": "Nordeste",
@@ -33,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cepValue.length === 8) {
             fetch(`https://viacep.com.br/ws/${cepValue}/json/`)
                 .then(response => response.json())
-                .then(data => {
-                    ''
-
-                    if (data.erro) {
+                .then(responseData => {
+                    if (responseData.erro) {
                         alert("CEP não encontrado");
+                        data = null;
                     } else {
+                        data = responseData;
                         document.getElementById('logradouro').value = data.logradouro;
                         document.getElementById('complemento').value = data.complemento || '';
                         document.getElementById('bairro').value = data.bairro;
@@ -53,22 +56,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 .catch(error => {
                     console.error('Erro ao consultar o CEP:', error);
                     alert('Erro ao consultar o CEP');
+                    data = null;
                 });
         }
     });
 
     nome.addEventListener("input", () => {
-        salvar.addEventListener("click", () => {
-            armazem.append(cepValue + "\n" +
-                (data.logradouro || "Logradouro não encontrado") + "\n" +
-                (data.complemento || "Complemento não encontrado") + "\n" +
-                (data.bairro || "Bairro não encontrado") + "\n" +
-                (data.localidade || "Localidade não encontrada") + "\n" +
-                (data.uf || "UF não encontrada") + "\n" +
-                obterRegiao(data.uf) + "\n" +
-                obterDDD(data.uf) + "\n");
-            console.log(armazem);
+        nomeSave = nome.value;
+    })
 
-        })
+    salvar.addEventListener("click", () => {
+        if (data) {
+            armazem.push("Nome: " + nomeSave + ",\n" +
+                cepValue + ",\n" +
+                (data.logradouro || "Logradouro não encontrado") + ",\n" +
+                (data.complemento || "Complemento não encontrado") + ",\n" +
+                (data.bairro || "Bairro não encontrado") + ",\n" +
+                (data.localidade || "Localidade não encontrada") + ",\n" +
+                (data.uf || "UF não encontrada") + ",\n" +
+                obterRegiao(data.uf) + ",\n" +
+                obterDDD(data.uf) + ",\n"
+            );
+            alert("Dados salvos!")
+            localStorage.setItem("armazem", JSON.stringify(armazem));
+        }
     });
+
+
+    const btnListar = document.getElementById("listar");
+    const listaArmazem = document.getElementById("lista-armazem");
+
+    btnListar.addEventListener("click", () => {
+        listaArmazem.innerHTML = "";
+
+        armazem.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.textContent = `Registro ${index + 1}:\n` + item;
+            listaArmazem.appendChild(li);
+        });
+    });
+
+
 });
